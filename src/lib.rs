@@ -1,5 +1,6 @@
 #![allow(clippy::unnecessary_wraps)]
 use std::sync::{Mutex};
+#[cfg(feature = "napi")]
 use neon::prelude::*;
 
 #[macro_use]
@@ -22,6 +23,10 @@ lazy_static! {
   pub static ref FONT_LIBRARY:Mutex<FontLibrary> = FontLibrary::shared();
 }
 
+#[cfg(feature = "ffi")]
+pub mod ffi;
+
+#[cfg(feature = "napi")]
 #[neon::main]
 fn main(mut cx: ModuleContext) -> NeonResult<()> {
 
